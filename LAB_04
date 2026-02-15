@@ -1,1 +1,142 @@
+Task 1: Sports Team Selection Eligibility
+#include <stdio.h>
+int main()
+{
+    float attendence;
+    printf("Enter practice attendence percentage:");
+    scanf ("%f" , &attendence);
+    if (attendence>= 75){
+        printf("Selected for Tournament");
+    }
+    else{
+        printf("Not Selected");
+    }
+    return 0;}
+Task 2: Internet Data Usage Category
+#include <stdio.h>
+
+int main()
+{
+    float data;
+    printf("Enter total data used in GB:");
+    scanf("%f", &data);
+    if (data <=50){
+        printf("Basic User");
+    }
+    else if (data<=150){
+        printf("Standard User");
+    }
+    else {
+        printf("Heavy User");
+    }
+
+    return 0;
+}
+Task 3: Bank Account Balance Status
+#include <stdio.h>
+
+int main()
+{
+    int balance;
+    printf("Enter account balance:");
+    scanf("%d", &balance);
+    if (balance > 0){
+        printf("Positive balance");
+    }
+    else if (balance < 0){
+        printf("Overdrawn");
+    }
+    else {
+        printf("Zero balance");
+    }
+
+    return 0;
+}
+Task 4: Wi-Fi Access Authentication System
+#include <stdio.h>
+int main()
+{
+    int password;
+    char username[5];
+    printf("Enter username:");
+    scanf("%s", &username);
+     printf("Enter password:");
+    scanf("%d", &password);
+    if (username[0]=='u'&& username[1]=='s' && username[2]=='e'
+    && username[3]=='r' && password == 7890 )
+    {
+        printf("Connected Successfully");
+    }
+    else
+    {
+        printf("Connection Failed");    
+    }
+    
+    return 0;
+}
+Task 5: Banking Service Menu System
+#include <stdio.h>
+
+int main() {
+    int choice;
+    double balance = 1000.00;   
+    double amount;
+
+    printf("     ATM Menu     \n");
+    printf("1. Balance Inquiry\n");
+    printf("2. Withdraw Money\n");
+    printf("3. Deposit Money\n");
+    printf("4. Exit\n");
+    printf("Enter your choice: ");
+
+    if (scanf("%d", &choice) != 1) {
+        printf("Invalid input! Please enter a number between 1 and 4.\n");
+        return 1;
+    }
+
+    switch(choice) {
+
+        case 1:
+            printf("\nYour current balance is: $%.2lf\n", balance);
+            break;
+
+        case 2:
+            printf("\nEnter amount to withdraw: ");
+            
+            if (scanf("%lf", &amount) != 1 || amount <= 0) {
+                printf("Invalid amount! Please enter a positive number.\n");
+            }
+            else if (amount > balance) {
+                printf("Insufficient balance! Transaction failed.\n");
+            }
+            else {
+                balance -= amount;   
+                printf("Withdrawal successful!\n");
+                printf("Remaining balance: $%.2lf\n", balance);
+            }
+            break;
+
+        case 3:
+            printf("\nEnter amount to deposit: ");
+            
+            if (scanf("%lf", &amount) != 1 || amount <= 0) {
+                printf("Invalid amount! Please enter a positive number.\n");
+            }
+            else {
+                balance += amount;  
+                printf("Deposit successful!\n");
+                printf("Updated balance: $%.2lf\n", balance);
+            }
+            break;
+
+        case 4:
+            printf("\nThank you for using the ATM. Goodbye!\n");
+            break;
+
+        default:
+            printf("\nInvalid choice! Please select between 1 and 4.\n");
+    }
+
+    return 0;
+}
 
