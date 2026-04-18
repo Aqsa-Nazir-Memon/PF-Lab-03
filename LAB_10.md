@@ -196,3 +196,209 @@ int main() {
 ## Objective 3: File Handling in C
 ### Task 6: Student Grade Logger
 ```c
+#include <stdio.h>
+int main() {
+    char name[50];
+    int grade, i;
+    FILE *fptr;
+    
+    fptr = fopen("grades.txt", "w");
+    
+    if (fptr == NULL) {
+        printf("Error opening file for writing\n");
+        return 1;
+    }
+
+    for (i = 0; i < 3; i++) {
+        printf("Enter Student name %d: ", i + 1);
+        scanf("%s", name);
+
+        printf("Enter grade %d: ", i + 1);
+        scanf("%d", &grade);
+
+        fprintf(fptr, "%s %d\n", name, grade);
+    }
+    fclose(fptr);
+    fptr = fopen("grades.txt", "r");
+    
+    if (fptr == NULL) {
+        printf("Error opening file for reading\n");
+        return 1;
+    }
+    printf("\nStored Records:\n");
+    while (fscanf(fptr, "%s %d", name, &grade) != EOF) {
+        printf("Name: %s, Grade: %d\n", name, grade);
+    }
+    fclose(fptr);
+
+    return 0;
+}
+```
+### Task 7: Inventory Log Appender
+```c
+#include <stdio.h>
+
+int main() {
+    char product[50];
+    int quantity;
+    FILE *fptr;
+    
+    fptr = fopen("inventory.txt", "a");
+
+    if (fptr == NULL) {
+        printf("Error opening file for appending\n");
+        return 1;
+    }
+    printf("Enter product name: ");
+    scanf("%s", product);
+
+    printf("Enter quantity: ");
+    scanf("%d", &quantity);
+    
+    fprintf(fptr, "%s %d\n", product, quantity);
+    fclose(fptr);
+
+    fptr = fopen("inventory.txt", "r");
+
+    if (fptr == NULL) {
+        printf("Error opening file for reading\n");
+        return 1;
+    }
+    printf("\nInventory Records:\n");
+    while (fscanf(fptr, "%s %d", product, &quantity) != EOF) {
+        printf("Product: %s, Quantity: %d\n", product, quantity);
+    }
+    fclose(fptr);
+
+    return 0;
+}
+```
+### Task 8: Survey Result Processor
+```c
+#include <stdio.h>
+int main() {
+    int score, i;
+    int val;
+    int sum = 0;
+    float average;
+    FILE *fptr;
+
+    fptr = fopen("survey.txt", "w");
+
+    if (fptr == NULL) {
+        printf("Error opening file for writing\n");
+        return 1;
+    }
+    printf("Enter 5 survey scores (1–10):\n");
+    for (i = 0; i < 5; i++) {
+        scanf("%d", &score);
+        fprintf(fptr, "%d\n", score);
+    }
+    fclose(fptr);
+    fptr = fopen("survey.txt", "r");
+
+    if (fptr == NULL) {
+        printf("Error opening file for reading\n");
+        return 1;
+    }
+    while (fscanf(fptr, "%d", &val) != EOF) {
+        sum += val;
+    }
+    fclose(fptr);
+    average = sum / 5.0;
+
+    printf("\nSum = %d\n", sum);
+    printf("Average = %.2f\n", average);
+    return 0;
+}
+```
+### Task 9: Configuration File Reader
+```c
+#include <stdio.h>
+int main() 
+{
+    FILE *fptr;
+    fptr = fopen("config.txt", "r");
+
+    if (fptr == NULL) {
+        printf("Config file not found. Creating default config.txt...\n");
+
+        fptr = fopen("config.txt", "w");
+
+        if (fptr == NULL) {
+            printf("Error creating config file\n");
+            return 1;
+        }
+        fprintf(fptr, "max_users=50\n");
+        fprintf(fptr, "timeout=30\n");
+        fprintf(fptr, "retry_limit=5\n");
+
+        fclose(fptr);
+
+        printf("Default config.txt created successfully.\n");
+    } 
+    else {
+        printf("Config file found. Reading settings...\n");
+
+        char line[100];
+
+        while (fgets(line, sizeof(line), fptr) != NULL) {
+            printf("%s", line);
+        }
+        fclose(fptr);
+    }
+    return 0;
+}
+```
+### Task 10: Student Report Card Generator
+```c
+#include <stdio.h>
+
+int main() {
+    char name[50];
+    int s1, s2, s3;
+    float avg;
+    char status[10];
+    FILE *fptr;
+    char line[100];
+    
+    printf("Enter student name: ");
+    scanf(" %[^\n]", name);
+
+    printf("Enter 3 subject scores:\n");
+    scanf("%d %d %d", &s1, &s2, &s3);
+
+    avg = (s1 + s2 + s3) / 3.0;
+
+    if (avg >= 50)
+        sprintf(status, "PASS");
+    else
+        sprintf(status, "FAIL");
+
+    fptr = fopen("report.txt", "w+");
+
+    if (fptr == NULL) {
+        printf("Error opening file\n");
+        return 1;
+    }
+
+    fprintf(fptr, "----- Report Card -----\n");
+    fprintf(fptr, "Name: %s\n", name);
+    fprintf(fptr, "Subject 1: %d\n", s1);
+    fprintf(fptr, "Subject 2: %d\n", s2);
+    fprintf(fptr, "Subject 3: %d\n", s3);
+    fprintf(fptr, "Average: %.2f\n", avg);
+    fprintf(fptr, "Status: %s\n", status);
+
+    rewind(fptr);
+
+    printf("\nGenerated Report:\n");
+    while (fgets(line, sizeof(line), fptr) != NULL) {
+        printf("%s", line);
+    }
+    
+    fclose(fptr);
+
+    return 0;
+}
+```
